@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {Component, useState} from 'react';
 import {getDatabase, ref, set, push} from "firebase/database"
 import app from "../config";
 
-const WriteNewComponent = () => {
+const WriteComponent = (
+    // isEditingMode: boolean = false,
+    // component: Component = null,
+) => {
     const [componentName, setComponentName] = useState("");
     const [descriptionOfComponent, setDescriptionOfComponent] = useState("");
 
@@ -32,4 +35,4 @@ const WriteNewComponent = () => {
     );
 };
 
-export default WriteNewComponent;
+export default WriteComponent;
