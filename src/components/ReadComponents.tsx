@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {getDatabase, ref, get} from "firebase/database"
+import React, {useEffect, useState} from 'react';
+import {get, getDatabase, ref} from "firebase/database"
 import app from "../config";
 
 const ReadComponents = () => {
@@ -7,7 +7,7 @@ const ReadComponents = () => {
 
     const fetch = async () => {
         const db = getDatabase(app);
-        const dbRef = ref(db, "reactjs/components");
+        const dbRef = ref(db, "reactjs/component");
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             setComponents(Object.values(snapshot.val()));
@@ -16,11 +16,18 @@ const ReadComponents = () => {
         }
     }
 
+    useEffect(() => {
+        fetch().then(() => {
+            console.log('Data fetched successfully');
+        }).catch(error => {
+            console.error('Error in fetching data:', error);
+        });
+    }, []);
+
     return (
         <div>
-            <button onClick={fetch}>Load all components</button>
             <ul>
-                {components.map((item, index) => (
+                {components.map((item: any, index: number) => (
                     <li key={index}>
                         {item.componentName}
                     </li>
