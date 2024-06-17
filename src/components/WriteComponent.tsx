@@ -1,36 +1,33 @@
-import React, {Component, useState} from 'react';
-import {getDatabase, ref, set, push} from "firebase/database"
-import app from "../config";
+import React, { useState } from 'react';
 
-const WriteComponent = (
-    // isEditingMode: boolean = false,
-    // component: Component = null,
-) => {
-    const [componentName, setComponentName] = useState("");
-    const [descriptionOfComponent, setDescriptionOfComponent] = useState("");
+const WriteComponent = ({ createComponent, loading, component, error }: any) => {
+    const [componentName, setComponentName] = useState('');
+    const [description, setDescription] = useState('');
 
-    const saveData = async () => {
-        const db = getDatabase(app);
-        const newDocRef = push(ref(db, "reactjs/component"));
-        set(newDocRef, {
-            componentName: componentName,
-            description: descriptionOfComponent
-        }).then(() => {
-            alert("component saved successfully")
-        }).catch((error) => {
-            console.log(`error: ${error.message()}`)
-        });
-    }
+    const handleSave = () => {
+        createComponent({ componentName, description });
+    };
 
     return (
         <div>
-            <input type={"text"} value={componentName}
-                   onChange={(e) => setComponentName(e.target.value)}/>
-            <br/>
-            <input type={"text"} value={descriptionOfComponent}
-                   onChange={(e) => setDescriptionOfComponent(e.target.value)}/>
-            <br/>
-            <button onClick={saveData}>Save component</button>
+            <input
+                type="text"
+                value={componentName}
+                onChange={(e) => setComponentName(e.target.value)}
+                placeholder="Component Name"
+            />
+            <br />
+            <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description"
+            />
+            <br />
+            <button onClick={handleSave} disabled={loading}>Save Component</button>
+            {loading && <p>Loading...</p>}
+            {component && <p>Component Created: {component.componentName}</p>}
+            {error && <p>Error: {error}</p>}
         </div>
     );
 };
