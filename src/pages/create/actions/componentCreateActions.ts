@@ -6,6 +6,7 @@ import {
     CREATE_COMPONENT_FAILURE
 } from '../constants/actionTypes';
 import { Component } from '../../../app/types/component';
+import * as firebase from "../../../constants/firebase";
 
 const createComponentRequest = () => ({
     type: CREATE_COMPONENT_REQUEST,
@@ -25,7 +26,7 @@ export const createComponent = (component: Omit<Component, 'componentId'>) => as
     dispatch(createComponentRequest());
     try {
         const db = getDatabase(app);
-        const newComponentRef = push(ref(db, 'reactjs/component'));
+        const newComponentRef = push(ref(db, `${firebase.dbPath}`));
         await set(newComponentRef, component);
         dispatch(createComponentSuccess({ ...component, componentId: newComponentRef.key! }));
     } catch (error) {
