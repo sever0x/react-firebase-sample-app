@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {get, getDatabase, ref} from "firebase/database"
-import app from "../config";
-import {Component} from "../types/component";
+import app from "../app/config";
+import {Component} from "../app/types/component";
 import { useNavigate } from 'react-router-dom';
 
 const ReadComponents = () => {

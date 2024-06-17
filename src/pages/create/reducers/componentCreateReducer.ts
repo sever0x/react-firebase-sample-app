@@ -3,7 +3,7 @@ import {
     CREATE_COMPONENT_SUCCESS,
     CREATE_COMPONENT_FAILURE
 } from '../constants/actionTypes';
-import { Component } from '../../../types/component';
+import { Component } from '../../../app/types/component';
 
 interface ComponentState {
     loading: boolean;

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {Component} from "../types/component";
+import {Component} from "../app/types/component";
 import {get, getDatabase, ref, set} from "firebase/database";
-import app from "../config";
+import app from "../app/config";
 
 const UpdateComponent = () => {
     const {itemId} = useParams();
